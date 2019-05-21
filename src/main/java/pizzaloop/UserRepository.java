@@ -12,4 +12,14 @@ public interface UserRepository extends CrudRepository<Users, Integer> {
      * Find User by Telephone and Password
      */
     List<Users> findByTelephoneAndPassword(String telephone, String password);
+
+    /*
+     * Find User by Telephone
+     */
+    List<Users> findByTelephone(String telephone);
+
+    /*
+     * Find User by Nic and E-mail
+     */
+    List<Users> findByNicOrEmailOrTelephone(String nic, String email, String telephone);
 }

@@ -15,6 +15,11 @@ public interface CartRepository extends CrudRepository<Cart, Integer> {
      */
     List<Cart> findByUserid(Integer user_id);
 
+    /*
+     * Find UserId by Id and Cart Status
+     */
+    List<Cart> findByUseridAndCartstatus(Integer user_id, Integer cartstatus);
+
 
     /*
      * Find Cart by Id

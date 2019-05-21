@@ -25,8 +25,14 @@ public class Cart {
     private Double total;
     @Column(name = "img_url")
     private String img_url;
+    @Column(name = "telephone")
+    private String telephone;
+    @Column(name = "address")
+    private String address;
     @Column(name = "cart_status")
-    private int cart_status;
+    private int cartstatus;
+    @Column(name = "paymentMethod")
+    private String paymentMethod;
 
     public int getId() {
         return id;
@@ -100,12 +106,36 @@ public class Cart {
         this.img_url = img_url;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public int getCart_status() {
-        return cart_status;
+        return cartstatus;
     }
 
     public void setCart_status(int cart_status) {
-        this.cart_status = cart_status;
+        this.cartstatus = cart_status;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     @Override
@@ -120,7 +150,10 @@ public class Cart {
                 ", item=" + item +
                 ", total=" + total +
                 ", img_url='" + img_url + '\'' +
-                ", cart_status=" + cart_status +
+                ", telephone='" + telephone + '\'' +
+                ", address='" + address + '\'' +
+                ", cartstatus=" + cartstatus +
+                ", paymentMethod='" + paymentMethod + '\'' +
                 '}';
     }
 }

@@ -89,6 +89,29 @@ public class MainController {
 
 
     /*
+     * READ Operation based on Telephone
+     * This method will return the details of a Users specified by the Telephone
+     * URI to access this: http://localhost:8080/demo/findByTelephone?telephone=0754576062
+     */
+    @RequestMapping(path="/findByTelephone")
+    public @ResponseBody List<Users> findByTelephone(@RequestParam String telephone) {
+        return userRepository.findByTelephone(telephone);
+    }
+
+
+    /*
+     * READ Operation based on Nic and Email and Telephone
+     * This method will return the details of a Users specified by the Nic and Email and Email
+     * URI to access this: http://localhost:8080/demo/findByNicandEmail?nic=9609789v&email=ishanmenaka6@gmail.com&telephone=0754576062
+     */
+    @RequestMapping(path="/findByNicOrEmailOrTelephone")
+    public @ResponseBody List<Users> findByNicandEmail(@RequestParam String nic, @RequestParam String email, @RequestParam String telephone) {
+        return userRepository.findByNicOrEmailOrTelephone(nic, email, telephone);
+    }
+
+
+
+    /*
      * READ Operation based on CartId
      * This method will return the details of a Cart specified by the CartId
      * URI to access this: http://localhost:8080/demo/findByCartId?100
@@ -96,6 +119,18 @@ public class MainController {
     @RequestMapping(path="/findByCartId")
     public @ResponseBody List<Cart> getCartById(@RequestParam Integer user_id) {
         return cartRepository.findByUserid(user_id);
+    }
+
+
+
+    /*
+     * READ Operation based on Cartstatus and User Id
+     * This method will return the details of a Cart specified by the Cartstatus and User Id
+     * URI to access this: http://localhost:8080/demo/findByCartId?100&user_id=1&cartstatus=0
+     */
+    @RequestMapping(path="/findByCartIdAndUserId")
+    public @ResponseBody List<Cart> getCartById1(@RequestParam Integer user_id, @RequestParam Integer cartstatus) {
+        return cartRepository.findByUseridAndCartstatus(user_id, cartstatus);
     }
 
 
@@ -205,7 +240,7 @@ public class MainController {
      * URI to access this: http://localhost:8080/demo/updateCart?id=1&size=UpdatedSize&item=UpdatedItemcount&total=2000.00
      */
     @GetMapping(path="/updateCart")
-    public @ResponseBody List<Cart> updateCartDetails(@RequestParam Integer id, @RequestParam String size, @RequestParam int item, @RequestParam Double total) {
+    public @ResponseBody List<Cart> updateCartDetails(@RequestParam Integer id, @RequestParam String size, @RequestParam int item, @RequestParam Double total, @RequestParam String telephone , @RequestParam String address) {
         //First get all the Cart details according to the provided ID
         List<Cart> cartDetailsList = cartRepository.findByid(id);
         if(!cartDetailsList.isEmpty()) {
@@ -215,6 +250,8 @@ public class MainController {
                 cart.setSize(size);
                 cart.setItem(item);
                 cart.setTotal(total);
+                cart.setTelephone(telephone);
+                cart.setAddress(address);
                 //Update existing Cart item
                 cartRepository.save(cart);
             }
@@ -222,4 +259,24 @@ public class MainController {
         return cartRepository.findByid(id);
     }
 
+    @GetMapping(path="/updateCart1")
+    public @ResponseBody List<Cart> updateCartDetails1(@RequestParam Integer id, @RequestParam String telephone , @RequestParam String address, @RequestParam int cart_status, @RequestParam String paymentMethod) {
+        //First get all the Cart details according to the provided ID
+        List<Cart> cartDetailsList1 = cartRepository.findByid(id);
+        if(!cartDetailsList1.isEmpty()) {
+            //Iterate through the Cart list
+            for(Cart cart: cartDetailsList1) {
+
+                //Set new values
+                cart.setTelephone(telephone);
+                cart.setAddress(address);
+                cart.setCart_status(cart_status);
+                cart.setPaymentMethod(paymentMethod);
+
+                //Update existing Cart item
+                cartRepository.save(cart);
+            }
+        }
+        return cartRepository.findByid(id);
+    }
 }
